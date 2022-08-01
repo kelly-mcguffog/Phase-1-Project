@@ -1,0 +1,16 @@
+{
+    "drinks": [
+        {
+            "name": "Margarita",
+            "img": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/marg-h-1526063646.jpg",
+            "description":"A refreshing blend of sweet and tangy",
+            "ingredients": "Tequila, lime juice, and Cointreau"
+        },
+        {
+            "name": "Whiskey Sour",
+            "img": "https://www.acouplecooks.com/wp-content/uploads/2019/06/Whiskey-Sour-111.jpg",         
+            "description": "The perfect balance of sweet and sour",
+            "ingredients": "Bourbon, lemon juice, and maple syrup"
+        }
+    ]
+}

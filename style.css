@@ -85,3 +85,14 @@ h2{
     height: 200px;
     width: 100%;
 }
+.cardBtn{
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 50px;
+    color: black;
+    font-size: 12px;
+    text-transform: uppercase;
+    justify-self: center;
+    height: 35px;
+    width: 130px;
+}
