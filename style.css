@@ -140,3 +140,11 @@ h2{
     font-weight: 200;
     font-size:14px;
   }
+  #search{
+    width:50%;
+    border-radius: 25px;
+    padding:8px;
+    display: block;
+    margin: auto;
+    border: 1px solid black;
+  }
