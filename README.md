@@ -1,7 +1,24 @@
-# Phase 1 Project - The Cocktail Maker
+# Phase 1 Project - DrinkUP
 
-## Description
-Are you in need of a good cocktail? Search through our cocktail menu and select one that satisfies your needs.
--Click on the drink that looks most appealing to reveal the recipe
--Like what you see? Click the "like" button to show your support and leave a comment in the review section
--Don't see your drink of choice? Add your own cocktail recipe to the site for others to create
+## Overview
+DrinkUP is a web application that provides a menu of your favorite cocktails. Search through our selection and click on your drink of choice to reveal more information about it. "Like" your favorite cocktails and leave a comment in the review section. 
+
+-Don't see your drink of choice? Add your own cocktail for others to make!
+
+## Features
+Filter through cocktail menu
+Click to see more information
+Like and comment
+Add your own cocktail
+
+## MVP
+Navigation
+Home Page
+Cocktail Menu Page
+Favorite page
+
+## STRECTH
+Use json-server to create menu of cocktails and add new ones
+
+## Cocktail Recipes & Descriptions
+https://insanelygoodrecipes.com/cocktail-recipes/
