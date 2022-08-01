@@ -27,13 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
         cardBtn.addEventListener("click", showDetails)
     }
     function renderCocktails(){
-        const showCocktails = document.getElementById("cocktails")
-        showCocktails.addEventListener('click', () => {
         fetch("http://localhost:3000/drinks")
         .then(res => res.json())
         .then(data => data.map(drink => cocktail(drink)))
-    })
     }
+
+    function cocktailMenu(){
+        const showCocktails = document.getElementById("cocktails")
+        showCocktails.addEventListener('click', renderCocktails)
+    }
+
+    cocktailMenu()
 
     function showDetails(e){
         specials.innerHTML = ""
@@ -41,18 +45,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const targetImgSrc = e.target.parentNode.getElementsByClassName("cocktailImg")[0].currentSrc
         const targetImg = document.createElement("img")
         targetImg.src = targetImgSrc
+        targetImg.className="cocktailImg"
         targetImgDiv.append(targetImg)
-        const divDetails = document.createElement('div')
-        const cocktailname = document.createElement('h3')
+        const cocktailname = document.createElement('h2')
+        cocktailname.className="targetName"
         cocktailname.textContent = e.target.parentNode.getElementsByClassName("cocktail-name")[0].innerHTML
-        details.append(divDetails)
         const targetCocktailDescription = document.createElement('p')
         targetCocktailDescription.textContent = e.target.parentNode.getElementsByClassName("cocktailDescription")[0].innerHTML
+        targetCocktailDescription.className = "cocktailDescription targetDescription"
         const targetIngredients = document.createElement('p')
         targetIngredients.textContent = e.target.parentNode.getElementsByClassName("ingredients")[0].innerHTML
         targetIngredients.style.display = "block"
-        divDetails.append(cocktailname, targetCocktailDescription, targetIngredients)
-        console.log(e.target.parentNode.getElementsByClassName("ingredients"))
+        targetIngredients.className = "ingredients"
+        details.append(cocktailname, targetCocktailDescription, targetIngredients)
     }
 
     renderCocktails()
