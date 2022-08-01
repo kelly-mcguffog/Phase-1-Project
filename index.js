@@ -19,9 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
         card.append(cocktailImg, cocktailName, cocktailDescription, cardBtn)
     }
     function renderCocktails(){
+        const showCocktails = document.getElementById("cocktails")
+        showCocktails.addEventListener('click', () => {
+            console.log('hi')
         fetch("http://localhost:3000/drinks")
         .then(res => res.json())
         .then(data => data.map(drink => cocktail(drink)))
+    })
     }
 
     renderCocktails()
