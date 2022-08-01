@@ -100,6 +100,11 @@ h2{
     height: 35px;
     width: 130px;
 }
+.cardBtn:hover{
+    background-color: black;
+    color: white;
+}
+
 #cocktail-specials {
     margin: 2rem;
     text-align: center;
@@ -140,6 +145,11 @@ h2{
     font-weight: 200;
     font-size:14px;
   }
+  .heart{
+    font-family: sans-serif;
+    font-weight: 200;
+    font-size:14px;
+  }
   #search{
     width:50%;
     border-radius: 25px;
@@ -147,4 +157,10 @@ h2{
     display: block;
     margin: auto;
     border: 1px solid black;
+  }
+  .activated-heart{
+    color: red;
+  }
+  .like-glyph{
+    cursor: pointer;
   }
