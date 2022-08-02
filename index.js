@@ -7,16 +7,19 @@ document.addEventListener("DOMContentLoaded", () => {
   
 })
 
-const specials = document.getElementById('cocktail-specials');
+// const specials = document.getElementById('cocktail-specials');
+const cardUl = document.getElementById('cocktail-list');
 const details = document.getElementById('cocktail-details');
 const targetImgDiv = document.getElementById('cocktail-target-img')
 const searchBar = document.getElementById('search')
 const menuHeader = document.getElementById('cocktail-header')
+let arr = [];
 
 function cocktail(drink){
-    const card = document.createElement('div')
+    const card = document.createElement('li')
     card.className = "card"
-    specials.append(card)
+    card.id = drink.id
+    cardUl.append(card)
     const cocktailImg = document.createElement('img')
     cocktailImg.className = "cocktailImg"
     cocktailImg.src= drink.img
@@ -37,6 +40,8 @@ function cocktail(drink){
     cardBtn.addEventListener("click", showDetails)
     searchBar.style.display = "block"
     menuHeader.style.display = "block"
+    targetImgDiv.innerHTML = ""
+    details.innerHTML = ""
 }
 function renderCocktails(){
     fetch("http://localhost:3000/drinks")
@@ -52,7 +57,7 @@ function cocktailMenu(){
 
 
 function showDetails(e){
-    specials.innerHTML = ""
+    cardUl.innerHTML = ""
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
     const targetImgSrc = e.target.parentNode.getElementsByClassName("cocktailImg")[0].currentSrc
@@ -83,7 +88,6 @@ function showDetails(e){
 }
 
 function likeDrink(e){
-    console.log(e.target)
     const activated = e.target.classList.contains('activated-heart')
     if(!activated){
       e.target.classList.add('activated-heart')
@@ -96,20 +100,21 @@ function likeDrink(e){
   }
 
 function search(){
-    let input = searchBar.value
-    input = input.toLowerCase()
-    let searchName = document.getElementsByClassName('cocktail-name')
-    for(i=0; i<searchName.length; i++){
-        if(!searchName[i].innerHTML.toLowerCase().includes(input)){
-            // searchName[i].parentNode.style.display="none"
-            console.log("hi")
-        } else{
-            // searchName[i].parentNode.style.display="block"
-            console.log("bye")
+    searchBar.addEventListener('keyup', function(){
+        let input = searchBar.value
+        input = input.toLowerCase()
+        let searchName = document.getElementsByClassName('cocktail-name')
+        for(i=0; i<searchName.length; i++){
+            if(!searchName[i].innerHTML.toLowerCase().includes(input)){
+                searchName[i].parentNode.style.display="none"
+            } else{
+                searchName[i].parentNode.style.display="block"
+            }
         }
-    }
-    
-    console.log(searchName)
-    console.log(searchName.length)
+        
+        console.log(searchName)
+        console.log(searchName.length)
+    })
+   
 
 }
