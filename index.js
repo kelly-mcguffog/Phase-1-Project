@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
 })
 
-// const specials = document.getElementById('cocktail-specials');
 const cardUl = document.getElementById('cocktail-list');
 const details = document.getElementById('cocktail-details');
 const targetImgDiv = document.getElementById('cocktail-target-img')
@@ -29,14 +28,22 @@ function cocktail(drink){
     const cocktailDescription = document.createElement('p')
     cocktailDescription.className = "cocktailDescription"
     cocktailDescription.textContent = drink.description
-    const ingredients = document.createElement("p")
-    ingredients.className = "ingredients"
-    ingredients.innerText = drink.ingredients
-    ingredients.style.display = "none"
+    const ingredientsUl = document.createElement("ul")
+    ingredientsUl.className = "ingredientsUl"
+    const ingredients = drink.ingredients
+
+        for(let i=0; i< ingredients.length; i++){
+            const ingredientsLi = document.createElement('li')
+            ingredientsLi.innerHTML = 
+            `${ingredients[i].ingredientName}: ${ingredients[i].measurement}`
+            ingredientsUl.append(ingredientsLi)
+        }
+ 
+    ingredientsUl.style.display = "none"
     const cardBtn = document.createElement('button')
     cardBtn.className = "cardBtn"
     cardBtn.innerText = "See More"
-    card.append(cocktailImg, cocktailName, cocktailDescription, ingredients, cardBtn)
+    card.append(cocktailImg, cocktailName, cocktailDescription, ingredientsUl, cardBtn)
     cardBtn.addEventListener("click", showDetails)
     searchBar.style.display = "block"
     menuHeader.style.display = "block"
@@ -71,16 +78,18 @@ function showDetails(e){
     const targetCocktailDescription = document.createElement('p')
     targetCocktailDescription.textContent = e.target.parentNode.getElementsByClassName("cocktailDescription")[0].innerHTML
     targetCocktailDescription.className = "cocktailDescription targetDescription"
-    const targetIngredients = document.createElement('p')
-    targetIngredients.textContent = e.target.parentNode.getElementsByClassName("ingredients")[0].innerHTML
-    targetIngredients.style.display = "block"
-    targetIngredients.className = "ingredients"
+    
+    const targetObj = e.target.parentNode.getElementsByClassName("ingredientsUl")[0]
+    targetObj.style.display = "block"
+
+    console.log(e.target.parentNode.getElementsByClassName("ingredientsUl")[0])
+
     const heart = document.createElement('p')
     heart.className = "heart"
     heart.innerHTML = `
             Like <span class="like-glyph">&#x2661;</span>
         `
-    details.append(cocktailname, targetCocktailDescription, targetIngredients, heart)
+    details.append(cocktailname, targetCocktailDescription, targetObj, heart)
     document.querySelector(".like-glyph").addEventListener("click", likeDrink)
     searchBar.style.display = "none"
     menuHeader.style.display = "none"
@@ -91,12 +100,9 @@ function likeDrink(e){
     const activated = e.target.classList.contains('activated-heart')
     if(!activated){
       e.target.classList.add('activated-heart')
-    //   hearts.target.innerText = EMPTY_HEART
     } else{
       e.target.classList.remove('activated-heart')
-    //   hearts.target.innerText = FULL_HEART
     }
-    // activated;
   }
 
 function search(){
@@ -108,12 +114,9 @@ function search(){
             if(!searchName[i].innerHTML.toLowerCase().includes(input)){
                 searchName[i].parentNode.style.display="none"
             } else{
-                searchName[i].parentNode.style.display="block"
+                searchName[i].parentNode.style.display="inline-grid"
             }
         }
-        
-        console.log(searchName)
-        console.log(searchName.length)
     })
    
 
