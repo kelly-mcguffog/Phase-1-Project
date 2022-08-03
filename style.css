@@ -139,7 +139,7 @@ h2{
     cursor: pointer;
   }
   .targetDescription{
-    margin: 0;
+    margin: 10px 0px 0px 0px;
   }
   #search{
     width:50%;
@@ -157,7 +157,7 @@ h2{
     font-family: sans-serif;
     font-weight: 200;
     font-size:14px;
-    margin: 0;
+    margin: 10px 0px;
   }
   #target-details{
     width: 85%;

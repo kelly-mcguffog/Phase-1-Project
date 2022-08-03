@@ -49,7 +49,7 @@ function cocktail(drink){
     heart.className = "heart"
     heart.innerHTML = drink.like
        
-    card.append(cocktailImg, cocktailName, cocktailDescription, ingredientsUl, heart, cardBtn)
+    card.append(cocktailImg, cocktailName, cocktailDescription, ingredientsUl, cardBtn, heart)
     
     heart.addEventListener("click", likeDrink)
 
@@ -77,28 +77,33 @@ function showDetails(e){
     cardUl.innerHTML = ""
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
-    const targetImgSrc = e.target.parentNode.getElementsByClassName("cocktailImg")[0].currentSrc
-    const targetImg = document.createElement("img")
-    targetImg.src = targetImgSrc
-    targetImg.className="cocktailImg"
+    // const targetImgSrc = e.target.parentNode.getElementsByClassName("cocktailImg")[0].currentSrc
+    // const targetImg = document.createElement("img")
+    // targetImg.src = targetImgSrc
+    // targetImg.className="cocktailImg"
+    // targetImgDiv.append(targetImg)
+
+    const targetImg =  e.target.parentNode.getElementsByClassName("cocktailImg")[0]
     targetImgDiv.append(targetImg)
-    const cocktailname = document.createElement('h2')
-    cocktailname.className="targetName"
-    cocktailname.textContent = e.target.parentNode.getElementsByClassName("cocktail-name")[0].innerHTML
-    const targetCocktailDescription = document.createElement('p')
-    targetCocktailDescription.textContent = e.target.parentNode.getElementsByClassName("cocktailDescription")[0].innerHTML
-    targetCocktailDescription.className = "cocktailDescription targetDescription"
+    // const cocktailname = document.createElement('h2')
+    // cocktailname.className="targetName"
+    // cocktailname.textContent = e.target.parentNode.getElementsByClassName("cocktail-name")[0].innerHTML
+    // const targetCocktailDescription = document.createElement('p')
+    // targetCocktailDescription.textContent = e.target.parentNode.getElementsByClassName("cocktailDescription")[0].innerHTML
+    // targetCocktailDescription.className = "cocktailDescription targetDescription"
     
+    const cocktailname = e.target.parentNode.getElementsByClassName("cocktail-name")[0]
+
+    const targetCocktailDescription = e.target.parentNode.getElementsByClassName("cocktailDescription")[0]
+    targetCocktailDescription.className = "cocktailDescription targetDescription"
     const targetObj = e.target.parentNode.getElementsByClassName("ingredientsUl")[0]
     targetObj.style.display = "inline-block"
 
 
-    // const heart = document.createElement('p')
-    // heart.className = "heart"
-    // heart.innerHTML = `
-    //         Like <span class="like-glyph">&#x2661;</span>
-    //     `
-    details.append(cocktailname, targetCocktailDescription, targetObj)
+    // const targetHeart = document.createElement('p')
+    const targetHeart = e.target.parentNode.getElementsByClassName("heart")[0]
+    console.log(targetHeart)
+    details.append(cocktailname, targetCocktailDescription, targetObj, targetHeart)
     // document.querySelector(".like-glyph").addEventListener("click", addLikeCocktail)
     searchBar.style.display = "none"
     menuHeader.style.display = "none"
@@ -153,7 +158,7 @@ function filterHearts(){
     favorites.addEventListener('click', function hi() {
         const list = document.getElementsByClassName('card')
         for(let i=0; i < list.length; i++){
-            if(list[i].childNodes[4].classList.contains("activated-heart")){
+            if(list[i].childNodes[5].classList.contains("activated-heart")){
                 list[i].style.display = "inline-grid"
                 console.log(list[i].childNodes[4])
             }else{
