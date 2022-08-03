@@ -531,7 +531,8 @@
           "ingredientName": "Orange Slice",
           "measurement": "1"
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 21,
@@ -607,7 +608,8 @@
           "ingredientName": "Sweet and Sour Mix",
           "measurement": "6 parts"
         }
-      ]
+      ],
+      "isTrusted": true
     }
   ]
 }

@@ -114,32 +114,22 @@ function showDetails(e){
 }
 
 function createForm(){
-    const form = document.createElement('form')
-    form.className = "form"
-    const comment = document.createElement('textarea')
-    comment.placeholder = "Leave a comment here..."
-    const commentHeader = document.createElement('h3')
-    commentHeader.className = "cocktail-name"
-    commentHeader.textContent = "Share a Review"
-    const reviewSection = document.createElement("div")
-    reviewSection.className = "reviewSection"
-    const oneStar = document.createElement('span')
-    oneStar.className = "fa fa-star"
-    const twoStars = document.createElement('span')
-    twoStars.className = "fa fa-star"
-    const threeStars = document.createElement('span')
-    threeStars.className = "fa fa-star"
-    const fourStars = document.createElement('span')
-    fourStars.className = "fa fa-star"
-    const fiveStars = document.createElement('span')
-    fiveStars.className = "fa fa-star"
-    reviewSection.append(oneStar, twoStars, threeStars, fourStars, fiveStars)
-    const submit = document.createElement('button')
-    submit.innerHTML = "Submit"
-    submit.className = "cardBtn"
-    form.append(commentHeader, comment, reviewSection, submit)
-    const targetDetailsSection = document.getElementById('target-details')
-    targetDetailsSection.append(form)
+   const form = document.querySelector('form')
+   form.addEventListener('submit', function submitForm(e){
+        e.preventDefault()
+        console.log(e.target.childNodes[3].value)
+        commentReview(e.target.childNodes[3].value)
+        form.reset();
+    })
+}
+
+function commentReview(content){
+    const commentUl = document.querySelector('.commentUl')
+    for(let i=0; i<1; i++){
+        let commentLi= document.createElement("li");
+        commentLi.textContent = content;
+        commentUl.append(commentLi);
+    }
 }
 
 function likeDrink(e){
@@ -187,7 +177,7 @@ function addLikeCocktail(e){
 
 function filterHearts(){
     const favorites = document.getElementById('favorites')
-    favorites.addEventListener('click', function hi() {
+    favorites.addEventListener('click', function filterFavorites() {
         const list = document.getElementsByClassName('card')
         for(let i=0; i < list.length; i++){
             if(list[i].childNodes[5].classList.contains("activated-heart")){
