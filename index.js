@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cocktailMenu()
     search()
     filterHearts()
+    createForm()
 
   
 })
@@ -99,7 +100,6 @@ function showDetails(e){
     const targetObj = e.target.parentNode.getElementsByClassName("ingredientsUl")[0]
     targetObj.style.display = "inline-block"
 
-
     // const targetHeart = document.createElement('p')
     const targetHeart = e.target.parentNode.getElementsByClassName("heart")[0]
     console.log(targetHeart)
@@ -108,6 +108,38 @@ function showDetails(e){
     searchBar.style.display = "none"
     menuHeader.style.display = "none"
 
+    
+    // comment.type = "textarea"
+
+}
+
+function createForm(){
+    const form = document.createElement('form')
+    form.className = "form"
+    const comment = document.createElement('textarea')
+    comment.placeholder = "Leave a comment here..."
+    const commentHeader = document.createElement('h3')
+    commentHeader.className = "cocktail-name"
+    commentHeader.textContent = "Share a Review"
+    const reviewSection = document.createElement("div")
+    reviewSection.className = "reviewSection"
+    const oneStar = document.createElement('span')
+    oneStar.className = "fa fa-star"
+    const twoStars = document.createElement('span')
+    twoStars.className = "fa fa-star"
+    const threeStars = document.createElement('span')
+    threeStars.className = "fa fa-star"
+    const fourStars = document.createElement('span')
+    fourStars.className = "fa fa-star"
+    const fiveStars = document.createElement('span')
+    fiveStars.className = "fa fa-star"
+    reviewSection.append(oneStar, twoStars, threeStars, fourStars, fiveStars)
+    const submit = document.createElement('button')
+    submit.innerHTML = "Submit"
+    submit.className = "cardBtn"
+    form.append(commentHeader, comment, reviewSection, submit)
+    const targetDetailsSection = document.getElementById('target-details')
+    targetDetailsSection.append(form)
 }
 
 function likeDrink(e){
