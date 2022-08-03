@@ -24,6 +24,7 @@
     width: 35%;
     display: inline-block;
     margin: 0;
+    cursor: pointer;
  
 }
 nav{
@@ -72,6 +73,7 @@ h2{
 }
 .targetName{
     text-align: left;
+    margin: 10px 0px;
 }
 .card{
     text-align: center;
@@ -122,12 +124,12 @@ h2{
     font-size: 25px;
   }
   #cocktail-target-img{
-    width:50%;
+    width:45%;
     display: inline-block;
     vertical-align: middle;
   }
   #cocktail-details{
-    width:45%;
+    width:50%;
     display: inline-block;
     vertical-align: middle;
     margin-left:20px;
@@ -138,17 +140,6 @@ h2{
   }
   .targetDescription{
     margin: 0;
-  }
-  .ingredients{
-    margin:0;
-    font-family: sans-serif;
-    font-weight: 200;
-    font-size:14px;
-  }
-  .heart{
-    font-family: sans-serif;
-    font-weight: 200;
-    font-size:14px;
   }
   #search{
     width:50%;
@@ -161,10 +152,20 @@ h2{
   .activated-heart{
     color: red;
   }
-  .like-glyph{
+  .heart{
     cursor: pointer;
+    font-family: sans-serif;
+    font-weight: 200;
+    font-size:14px;
+    margin: 0;
   }
   #target-details{
-    width: 60%;
+    width: 85%;
     margin: 0 auto;
+  }
+  .ingredientsUl{
+    margin-bottom:0;
+    font-family: sans-serif;
+    font-weight: 200;
+    font-size:14px;
   }
