@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     search()
     filterHearts()
     createForm()
+    starRatings()
 
   
 })
@@ -123,7 +124,23 @@ function createForm(){
     })
 }
 
+function starRatings(){
+    const stars = document.getElementsByClassName('fa-star')
+    for(let i=0; i< stars.length; i++){
+        stars[i].addEventListener('click', function hi(e){
+            const starActivated = e.target.classList.contains('activated-star')
+            if(!starActivated){
+                e.target.classList.add('activated-star')
+              } else{
+                e.target.classList.remove('activated-star')
+              }
+        })
+    }
+
+}
+
 function commentReview(content){
+    
     const commentUl = document.querySelector('.commentUl')
     for(let i=0; i<1; i++){
         let commentLi= document.createElement("li");
@@ -131,6 +148,7 @@ function commentReview(content){
         commentUl.append(commentLi);
     }
 }
+
 
 function likeDrink(e){
     const activated = e.target.classList.contains('activated-heart')

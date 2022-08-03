@@ -189,9 +189,14 @@ textarea{
   .fa-star{
     font-size: 35px;
     margin: 0px 5px;
+    cursor: pointer;
   }
 
   form, #comment-section{
     width:85%;
     margin: 20px auto;
+  }
+
+  .activated-star{
+    color:orange;
   }
