@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     search()
     filterHearts()
     createForm()
-    starRatings()
+    postReview()
 
   
 })
@@ -15,7 +15,7 @@ const details = document.getElementById('cocktail-details');
 const targetImgDiv = document.getElementById('cocktail-target-img')
 const searchBar = document.getElementById('search')
 const menuHeader = document.getElementById('cocktail-header')
-// let arr = [];
+const commentSection = document.querySelector('#comment-section')
 
 function cocktail(drink){
     const card = document.createElement('li')
@@ -79,20 +79,9 @@ function showDetails(e){
     cardUl.innerHTML = ""
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
-    // const targetImgSrc = e.target.parentNode.getElementsByClassName("cocktailImg")[0].currentSrc
-    // const targetImg = document.createElement("img")
-    // targetImg.src = targetImgSrc
-    // targetImg.className="cocktailImg"
-    // targetImgDiv.append(targetImg)
-
+ 
     const targetImg =  e.target.parentNode.getElementsByClassName("cocktailImg")[0]
     targetImgDiv.append(targetImg)
-    // const cocktailname = document.createElement('h2')
-    // cocktailname.className="targetName"
-    // cocktailname.textContent = e.target.parentNode.getElementsByClassName("cocktail-name")[0].innerHTML
-    // const targetCocktailDescription = document.createElement('p')
-    // targetCocktailDescription.textContent = e.target.parentNode.getElementsByClassName("cocktailDescription")[0].innerHTML
-    // targetCocktailDescription.className = "cocktailDescription targetDescription"
     
     const cocktailname = e.target.parentNode.getElementsByClassName("cocktail-name")[0]
 
@@ -101,16 +90,13 @@ function showDetails(e){
     const targetObj = e.target.parentNode.getElementsByClassName("ingredientsUl")[0]
     targetObj.style.display = "inline-block"
 
-    // const targetHeart = document.createElement('p')
+
     const targetHeart = e.target.parentNode.getElementsByClassName("heart")[0]
     console.log(targetHeart)
     details.append(cocktailname, targetCocktailDescription, targetObj, targetHeart)
-    // document.querySelector(".like-glyph").addEventListener("click", addLikeCocktail)
+ 
     searchBar.style.display = "none"
     menuHeader.style.display = "none"
-
-    
-    // comment.type = "textarea"
 
 }
 
@@ -118,34 +104,31 @@ function createForm(){
    const form = document.querySelector('form')
    form.addEventListener('submit', function submitForm(e){
         e.preventDefault()
-        console.log(e.target.childNodes[3].value)
+
         commentReview(e.target.childNodes[3].value)
+        
+        const targetReview = e.target.childNodes[5].children
+        for(let i=0; i < targetReview.length; i++){
+            if(targetReview[i].classList.contains("activated-star")){
+                const createStar = document.createElement('span')
+            createStar.textContent = targetReview[i].innerHTML
+            console.log(createStar)
+            commentSection.append(createStar)
+            postReview(createStar)
+            }
+        }
+
+        console.log(e.target.childNodes[5].children)
         form.reset();
     })
 }
 
-function starRatings(){
-    const stars = document.getElementsByClassName('fa-star')
-    for(let i=0; i< stars.length; i++){
-        stars[i].addEventListener('click', function hi(e){
-            const starActivated = e.target.classList.contains('activated-star')
-            if(!starActivated){
-                e.target.classList.add('activated-star')
-              } else{
-                e.target.classList.remove('activated-star')
-              }
-        })
-    }
-
-}
-
 function commentReview(content){
-    
-    const commentUl = document.querySelector('.commentUl')
+
     for(let i=0; i<1; i++){
-        let commentLi= document.createElement("li");
-        commentLi.textContent = content;
-        commentUl.append(commentLi);
+        let comment= document.createElement("p");
+        comment.textContent = content;
+        commentSection.append(comment);
     }
 }
 
@@ -207,4 +190,62 @@ function filterHearts(){
         }
 
     })
+}
+
+
+
+/*
+* Variables
+*/
+const productRating = document.getElementById('starReview');
+const stars = productRating.querySelectorAll('.star');
+let rating = 0;
+
+/*
+* Event Listeners
+*/
+function postReview(){
+    productRating.addEventListener('click', e => {
+  if(!e.target.matches('.star')) return;
+
+  const starID = parseInt(e.target.getAttribute('data-star'));
+    
+  removeClassFromElements('activated-star', stars);
+  highlightStars(starID);
+  
+  rating = starID; // set rating
+});
+}
+
+// Highlight on hover
+productRating.addEventListener('mouseover', e => {
+  if(!e.target.matches('.star')) return;
+  
+  removeClassFromElements('activated-star', stars);
+  const starID = parseInt(e.target.getAttribute('data-star'));
+  highlightStars(starID);
+});
+
+//If a rating has been clicked, snap back to that rating on mouseleave
+productRating.addEventListener('mouseleave', e => {
+  removeClassFromElements('activated-star', stars);
+  if (rating === 0) return;
+  highlightStars(rating);
+});
+
+/*
+* Functions
+*/
+
+// Highlight active star and all those upto it
+function highlightStars(starID) {  
+  for (let i = 0; i < starID; i++) {
+    stars[i].classList.add('activated-star')
+  }
+}
+
+function removeClassFromElements(className, elements) {
+  for(let i = 0; i < elements.length; i++) {
+    elements[i].classList.remove(className)
+  }
 }

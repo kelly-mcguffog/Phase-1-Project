@@ -182,11 +182,11 @@ textarea{
     margin: 10px;
   }
 
-  .starReview{
+  #starReview{
     margin: 20px 0px;
   }
 
-  .fa-star{
+  .star{
     font-size: 35px;
     margin: 0px 5px;
     cursor: pointer;
@@ -198,5 +198,5 @@ textarea{
   }
 
   .activated-star{
-    color:orange;
+    color: #F9DC5C;
   }
