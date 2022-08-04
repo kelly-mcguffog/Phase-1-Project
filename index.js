@@ -4,10 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     cocktailMenu()
     search()
     filterHearts()
-    createForm()
     postReview()
+    hoverStars() 
+    saveRating()
+    createForm()
 
-  
 })
 
 const cardUl = document.getElementById('cocktail-list');
@@ -16,6 +17,9 @@ const targetImgDiv = document.getElementById('cocktail-target-img')
 const searchBar = document.getElementById('search')
 const menuHeader = document.getElementById('cocktail-header')
 const commentSection = document.querySelector('#comment-section')
+const productRating = document.getElementById('starReview');
+const stars = productRating.querySelectorAll('.star');
+let rating = 0;
 
 function cocktail(drink){
     const card = document.createElement('li')
@@ -100,38 +104,6 @@ function showDetails(e){
 
 }
 
-function createForm(){
-   const form = document.querySelector('form')
-   form.addEventListener('submit', function submitForm(e){
-        e.preventDefault()
-
-        commentReview(e.target.childNodes[3].value)
-        
-        const targetReview = e.target.childNodes[5].children
-        for(let i=0; i < targetReview.length; i++){
-            if(targetReview[i].classList.contains("activated-star")){
-                const createStar = document.createElement('span')
-            createStar.textContent = targetReview[i].innerHTML
-            console.log(createStar)
-            commentSection.append(createStar)
-            postReview(createStar)
-            }
-        }
-
-        console.log(e.target.childNodes[5].children)
-        form.reset();
-    })
-}
-
-function commentReview(content){
-
-    for(let i=0; i<1; i++){
-        let comment= document.createElement("p");
-        comment.textContent = content;
-        commentSection.append(comment);
-    }
-}
-
 
 function likeDrink(e){
     const activated = e.target.classList.contains('activated-heart')
@@ -192,18 +164,44 @@ function filterHearts(){
     })
 }
 
+function createForm(){
+    const form = document.querySelector('form')
+    form.addEventListener('submit', function submitForm(e){
+         e.preventDefault()
+ 
+         commentReview(e.target.childNodes[3].value)
+         
+         const targetReview = e.target.childNodes[5].children
+         for(let i=0; i < targetReview.length; i++){
+             if(targetReview[i].classList.contains("activated-star")){
+                 const createStar = document.createElement('span')
+             createStar.textContent = targetReview[i].innerHTML
+             console.log(createStar)
+             commentSection.append(createStar)
+             postReview(createStar)
+             }
+         }
+         const line = document.createElement('hr')
+         commentSection.append(line)
+         console.log(e.target.childNodes[5].children)
+         removeClassFromElements('activated-star', e.target.childNodes[5].children);
+         rating = 0;
+         form.reset();
+        
+         
+     })
+ }
+ 
+ function commentReview(content){
+ 
+     for(let i=0; i<1; i++){
+         let comment= document.createElement("p");
+        comment.className = "comment"
+         comment.textContent = content;
+         commentSection.append(comment);
+     }
+ }
 
-
-/*
-* Variables
-*/
-const productRating = document.getElementById('starReview');
-const stars = productRating.querySelectorAll('.star');
-let rating = 0;
-
-/*
-* Event Listeners
-*/
 function postReview(){
     productRating.addEventListener('click', e => {
   if(!e.target.matches('.star')) return;
@@ -217,27 +215,27 @@ function postReview(){
 });
 }
 
-// Highlight on hover
-productRating.addEventListener('mouseover', e => {
+
+function hoverStars() {
+    productRating.addEventListener('mouseover', e => {
   if(!e.target.matches('.star')) return;
   
   removeClassFromElements('activated-star', stars);
   const starID = parseInt(e.target.getAttribute('data-star'));
   highlightStars(starID);
 });
+}
 
-//If a rating has been clicked, snap back to that rating on mouseleave
-productRating.addEventListener('mouseleave', e => {
+
+function saveRating(){
+    productRating.addEventListener('mouseleave', e => {
   removeClassFromElements('activated-star', stars);
   if (rating === 0) return;
   highlightStars(rating);
 });
+}
 
-/*
-* Functions
-*/
 
-// Highlight active star and all those upto it
 function highlightStars(starID) {  
   for (let i = 0; i < starID; i++) {
     stars[i].classList.add('activated-star')

@@ -8,8 +8,8 @@ DrinkUP is a web application that provides a menu of your favorite cocktails. Se
 ## Features
 Filter through cocktail menu
 Click to see more information
-Like and comment
-Add your own cocktail
+Heart your favorite cocktails
+Leave a review
 
 ## MVP
 Navigation

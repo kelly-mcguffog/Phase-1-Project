@@ -42,8 +42,6 @@ header{
     background-size: cover;
     background-position: center center;
     position: relative;
-    /* margin-top: 20px;
-    border-radius: 15px; */
 }
 #header-text{
     text-align: center;
@@ -52,20 +50,13 @@ header{
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -50px 0 0 -150px;
+    margin: -50px 0 0 -120px;
     text-shadow: 2px 2px black;
 }
 h1{
     font-size:55px;
     margin: 0;
 }
-/* h3{
-    font-size: 20px;
-    margin: 0;
-    font-weight: 200;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-} */
 h2{
     font-size: 35px;
     text-align: center;
@@ -192,11 +183,17 @@ textarea{
     cursor: pointer;
   }
 
-  form, #comment-section{
+  form, #comment-section, #form-line{
     width:85%;
     margin: 20px auto;
   }
 
   .activated-star{
     color: #F9DC5C;
+  }
+  .comment{
+    margin: 10px 0px;
+    font-family: sans-serif;
+    font-weight: 200;
+    font-size:14px;
   }
