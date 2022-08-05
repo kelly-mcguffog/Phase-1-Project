@@ -1,13 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    renderCocktails()
-    cocktailMenu()
+    getAllCocktails()
+
     search()
     filterHearts()
     postReview()
     hoverStars() 
     saveRating()
     createForm()
+    cocktailMenu()
 
 })
 
@@ -20,8 +21,11 @@ const commentSection = document.querySelector('#comment-section')
 const productRating = document.getElementById('starReview');
 const stars = productRating.querySelectorAll('.star');
 let rating = 0;
+const showCocktails = document.getElementById("cocktails")
 
-function cocktail(drink){
+
+
+function renderCocktail(drink){
     const card = document.createElement('li')
     card.className = "card"
     card.id = drink.id
@@ -59,30 +63,147 @@ function cocktail(drink){
     
     heart.addEventListener("click", likeDrink)
 
-    cardBtn.addEventListener("click", showDetails)
+    cardBtn.addEventListener("click", showDetails, likeDrink)
     
     searchBar.style.display = "block"
     menuHeader.style.display = "block"
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
+    // cardUl.style.display = "block"
 }
-function renderCocktails(){
+function getAllCocktails(){
     fetch("http://localhost:3000/drinks")
     .then(res => res.json())
-    .then(data => data.map(drink => cocktail(drink)))
+    .then(data => data.map(drink => renderCocktail(drink)))
+}
+
+
+// function handleSubmit(e){
+// 	let cocktailObj = {
+// 	name:e.target.name.value,
+// 	imageUrl:e.target.image_url.value,
+// 	description:e.target.description.value,
+// 	}
+// 	renderCocktail(cocktailObj)
+// 	cocktailDetails(cocktailObj)
+// }
+
+// function cocktailDetails(cocktailObj){
+//     fetch(`http://localhost:3000/drinks`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(cocktailObj)
+//     })
+//     .then(res => res.json())
+//     .then(data => console.log(data))
+// }
+
+
+function showDetails(e){
+    // cardUl.innerHTML = ""
+    cardUl.style.display = "none"
+
+    targetImgDiv.innerHTML = ""
+    details.innerHTML = ""
+    searchBar.style.display = "none"
+    menuHeader.style.display = "none"
+    
+    // const targetImg =  e.target.parentNode.getElementsByClassName("cocktailImg")[0]
+    // targetImgDiv.append(targetImg)
+    
+    // const cocktailname = e.target.parentNode.getElementsByClassName("cocktail-name")[0]
+
+    // const targetCocktailDescription = e.target.parentNode.getElementsByClassName("cocktailDescription")[0]
+    // targetCocktailDescription.className = "cocktailDescription targetDescription"
+    // const targetObj = e.target.parentNode.getElementsByClassName("ingredientsUl")[0]
+    // targetObj.style.display = "inline-block"
+
+
+    // const targetHeart = e.target.parentNode.getElementsByClassName("heart")[0]
+
+    // details.id = e.target.parentNode.id
+    
+    // details.append(cocktailname, targetCocktailDescription, targetObj, targetHeart)
+ 
+    details.style.width = "50%";
+    details.style.display = "inline-block";
+    details.style.verticalAlign = "middle";
+    details.style.marginLeft = "20px";
+
+
+const targetCocktail = e.target.parentNode.children
+const targetArr = [].slice.call(targetCocktail)
+
+const targetImg = document.createElement("img")
+targetImg.src = targetArr[0].currentSrc
+targetImg.className = "cocktailImg"
+targetImgDiv.append(targetImg)
+const targetName = document.createElement("h3")
+targetName.textContent = targetArr[1].innerText
+
+const targetDescription = document.createElement("p")
+targetDescription.textContent = targetArr[2].innerText
+targetDescription.className = "cocktailDescription targetDescription"
+
+
+
+const targetIngredientsUl  = targetArr[3].children
+    const targetIngredientsArr = [].slice.call(targetIngredientsUl)
+
+const targetUl = document.createElement('ul')
+
+    for(let i=0; i< targetIngredientsArr.length; i++){
+        const targetIngredients = document.createElement("li")
+        targetIngredients.textContent = targetIngredientsArr[i].innerText
+        targetUl.append(targetIngredients)
+        targetUl.className = "ingredientsUl"
+        console.log(targetIngredientsUl)
+    }
+
+const targetLike = document.createElement("p")
+targetLike.textContent = targetArr[5].innerText
+console.log("target array",targetArr[5].className)
+targetLike.className = targetArr[5].className
+   details.append(targetName, targetDescription, targetUl, targetLike)
+details.id = e.target.parentNode.id
+targetLike.addEventListener('click', likeDrink)
+targetLike.id = "heart" + e.target.parentNode.id
+showCocktails.addEventListener("click", (e) => {
+    cocktailMenu()
+    const updateLike =  e.target.parentNode.parentNode.parentNode.getElementsByClassName("heart")
+    const heartArr = [].slice.call(updateLike)
+    for(let i = 0; i < heartArr.length; i++){
+        if(heartArr[i].id === targetLike.id){
+            heartArr[i].className = targetLike.className
+        }
+    }
+})
+
 }
 
 function cocktailMenu(){
-    const showCocktails = document.getElementById("cocktails")
-    showCocktails.addEventListener('click', () => {
+    // targetImgDiv.innerHTML = ""
+    // details.innerHTML = ""
+    // showCocktails.addEventListener('click', () => {
+    //    console.log(e.target.parentNode.parentNode.parentNode.getElementsByClassName("heart"))
+    //    const updateLike =  e.target.parentNode.parentNode.parentNode.getElementsByClassName("heart")
+    //    const heartArr = [].slice.call(updateLike)
+    //    console.log(heartArr)
+       
+       targetImgDiv.innerHTML = ""
+        details.innerHTML = ""
+        cardUl.style.display = "block"
         const uniqueIds = [];
-        const unCocktails = document.getElementsByClassName('card')
-        const arr = [].slice.call(unCocktails)
+        const uniqueCocktails = document.getElementsByClassName('card')
+        const arr = [].slice.call(uniqueCocktails)
         const unique = arr.filter(element => {
             const isDuplicate = uniqueIds.includes(element.id);
           
             if (!isDuplicate) {
               uniqueIds.push(element.id);
+              
             
               return true;
             }
@@ -93,52 +214,18 @@ function cocktailMenu(){
 
           for(let i=0; i < unique.length; i++){
             unique[i].style.display = "inline-grid"
+            cardUl.append(unique[i])
           }
           console.log("unique:", unique)
-          renderCocktails()
+          
     
-    })
+    // })
 
 }
-
-
-
-function showDetails(e){
-    cardUl.innerHTML = ""
-    targetImgDiv.innerHTML = ""
-    details.innerHTML = ""
-    
-    
-    const targetImg =  e.target.parentNode.getElementsByClassName("cocktailImg")[0]
-    targetImgDiv.append(targetImg)
-    
-    const cocktailname = e.target.parentNode.getElementsByClassName("cocktail-name")[0]
-
-    const targetCocktailDescription = e.target.parentNode.getElementsByClassName("cocktailDescription")[0]
-    targetCocktailDescription.className = "cocktailDescription targetDescription"
-    const targetObj = e.target.parentNode.getElementsByClassName("ingredientsUl")[0]
-    targetObj.style.display = "inline-block"
-
-
-    const targetHeart = e.target.parentNode.getElementsByClassName("heart")[0]
-    console.log("like this", e.target.parentNode.id)
-    details.id = e.target.parentNode.id
-    
-    details.append(cocktailname, targetCocktailDescription, targetObj, targetHeart)
- 
-    searchBar.style.display = "none"
-    menuHeader.style.display = "none"
-   
-
-
-}
-
-
 function likeDrink(e){
     const activated = e.target.classList.contains('activated-heart')
     if(!activated){
       e.target.classList.add('activated-heart')
-      addLikeCocktail(e)
     } else{
       e.target.classList.remove('activated-heart')
     }
@@ -165,7 +252,7 @@ function search(){
 
 
 function addLikeCocktail(e){
-    console.log(e.target.parentNode.id)
+    console.log("test",e.target.parentNode.getElementsByClassName("heart"))
     fetch(`http://localhost:3000/drinks/${e.target.parentNode.id}`, {
         method: 'PATCH',
         headers: {
@@ -174,12 +261,14 @@ function addLikeCocktail(e){
         body: JSON.stringify(e)
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => likeDrink(data))
 }
 
 function filterHearts(){
     const favorites = document.getElementById('favorites')
     favorites.addEventListener('click', function filterFavorites() {
+        targetImgDiv.innerHTML = ""
+        details.innerHTML = ""
         const list = document.getElementsByClassName('card')
         for(let i=0; i < list.length; i++){
             if(list[i].childNodes[5].classList.contains("activated-heart")){

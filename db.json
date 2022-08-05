@@ -79,7 +79,8 @@
           "ingredientName": "Water",
           "measurement": "1 dash"
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 3,
@@ -415,7 +416,8 @@
           "ingredientName": "Ginger Ale",
           "measurement": "8 oz"
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 17,
