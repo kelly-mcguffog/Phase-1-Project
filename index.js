@@ -16,7 +16,7 @@ const details = document.getElementById('cocktail-details');
 const showCocktails = document.getElementById("cocktails")
 const targetImgDiv = document.getElementById('cocktail-target-img')
 const searchBar = document.getElementById('search')
-const menuHeader = document.getElementById('cocktail-header')
+const introText = document.getElementById('intro')
 const favorites = document.getElementById('favorites')
 const commentSection = document.querySelector('#comment-section')
 const productRating = document.getElementById('starReview');
@@ -70,7 +70,7 @@ function renderCocktail(drink){
     showCocktails.addEventListener("click", cocktailMenu)
     
     searchBar.style.display = "block"
-    menuHeader.style.display = "block"
+    introText.style.display = "block"
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
 }
@@ -111,7 +111,7 @@ function showDetails(e){
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
     searchBar.style.display = "none"
-    menuHeader.style.display = "none" 
+    introText.style.display = "none" 
     details.style.width = "50%";
     details.style.display = "inline-block";
     details.style.verticalAlign = "middle";
@@ -152,6 +152,8 @@ function showDetails(e){
     targetLike.id = "heart" + e.target.parentNode.id
     showCocktails.addEventListener("click", (e) => {
         cocktailMenu()
+        searchBar.style.display = "block"
+        introText.style.display = "block" 
         const updateLike =  e.target.parentNode.parentNode.parentNode.getElementsByClassName("heart")
         const heartArr = [].slice.call(updateLike)
         for(let i = 0; i < heartArr.length; i++){
@@ -164,6 +166,9 @@ function showDetails(e){
 favorites.addEventListener('click', (e) => {
         targetImgDiv.innerHTML = ""
         details.innerHTML = ""
+
+        searchBar.style.display = "block"
+        introText.style.display = "block" 
 
         const updateFavorites =  e.target.parentNode.parentNode.parentNode.getElementsByClassName("heart")
         const favoriteIdArr = [].slice.call(updateFavorites)
