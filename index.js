@@ -74,7 +74,31 @@ function renderCocktails(){
 
 function cocktailMenu(){
     const showCocktails = document.getElementById("cocktails")
-    showCocktails.addEventListener('click', renderCocktails)
+    showCocktails.addEventListener('click', () => {
+        const uniqueIds = [];
+        const unCocktails = document.getElementsByClassName('card')
+        const arr = [].slice.call(unCocktails)
+        const unique = arr.filter(element => {
+            const isDuplicate = uniqueIds.includes(element.id);
+          
+            if (!isDuplicate) {
+              uniqueIds.push(element.id);
+            
+              return true;
+            }
+          
+            return false;
+            
+          });
+
+          for(let i=0; i < unique.length; i++){
+            unique[i].style.display = "inline-grid"
+          }
+          console.log("unique:", unique)
+
+    
+    })
+
 }
 
 
