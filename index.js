@@ -64,6 +64,10 @@ function renderCocktail(drink){
     heart.addEventListener("click", likeDrink)
 
     cardBtn.addEventListener("click", showDetails, likeDrink)
+
+    favorites.addEventListener("click", filterHearts)
+
+    showCocktails.addEventListener("click", cocktailMenu)
     
     searchBar.style.display = "block"
     menuHeader.style.display = "block"
@@ -179,7 +183,7 @@ favorites.addEventListener('click', (e) => {
 }
 
 function cocktailMenu(){
-       
+    
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
     cardUl.style.display = "block"
