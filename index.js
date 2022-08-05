@@ -95,7 +95,7 @@ function cocktailMenu(){
             unique[i].style.display = "inline-grid"
           }
           console.log("unique:", unique)
-
+          renderCocktails()
     
     })
 
@@ -107,7 +107,8 @@ function showDetails(e){
     cardUl.innerHTML = ""
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
- 
+    
+    
     const targetImg =  e.target.parentNode.getElementsByClassName("cocktailImg")[0]
     targetImgDiv.append(targetImg)
     
@@ -120,11 +121,15 @@ function showDetails(e){
 
 
     const targetHeart = e.target.parentNode.getElementsByClassName("heart")[0]
-    console.log(targetHeart)
+    console.log("like this", e.target.parentNode.id)
+    details.id = e.target.parentNode.id
+    
     details.append(cocktailname, targetCocktailDescription, targetObj, targetHeart)
  
     searchBar.style.display = "none"
     menuHeader.style.display = "none"
+   
+
 
 }
 
