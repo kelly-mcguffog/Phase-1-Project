@@ -23,8 +23,6 @@ const productRating = document.getElementById('starReview');
 const stars = productRating.querySelectorAll('.star');
 let rating = 0;
 
-
-
 function renderCocktail(drink){
     const card = document.createElement('li')
     card.className = "card"
@@ -151,9 +149,10 @@ function showDetails(e){
     targetLike.addEventListener('click', likeDrink)
     targetLike.id = "heart" + e.target.parentNode.id
     showCocktails.addEventListener("click", (e) => {
+        searchBar.value = ""
         cocktailMenu()
         searchBar.style.display = "block"
-        introText.style.display = "block" 
+        introText.style.display = "block"
         const updateLike =  e.target.parentNode.parentNode.parentNode.getElementsByClassName("heart")
         const heartArr = [].slice.call(updateLike)
         for(let i = 0; i < heartArr.length; i++){
@@ -166,7 +165,7 @@ function showDetails(e){
 favorites.addEventListener('click', (e) => {
         targetImgDiv.innerHTML = ""
         details.innerHTML = ""
-
+        searchBar.value = ""
         searchBar.style.display = "block"
         introText.style.display = "block" 
 
@@ -188,7 +187,6 @@ favorites.addEventListener('click', (e) => {
 }
 
 function cocktailMenu(){
-    
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
     cardUl.style.display = "block"
