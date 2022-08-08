@@ -75,6 +75,9 @@ h2{
     display: inline-grid;
     box-shadow: 3px 3px 5px 1px #ccc;
 }
+#cocktail-list{
+  padding: 0px;
+}
 
 .cocktailImg{
     object-fit: cover;
@@ -100,7 +103,7 @@ button:hover{
 }
 
 #cocktail-specials {
-    margin: 2rem;
+    margin: 0 auto;
     text-align: center;
   }
 .cocktailDescription{
@@ -164,7 +167,7 @@ h3{
   }
   #target-details{
     width: 85%;
-    margin: 0 auto;
+    margin: 50px auto;
   }
   .ingredientsUl{
     margin-bottom:0;
@@ -216,4 +219,42 @@ textarea{
 
 .showCocktailForm{
   display: none;
+}
+
+#name, #image_url, .ingredient, .measurement{
+    width:27%;
+    border-radius: 3px;
+    padding:8px;
+    margin: 10px;
+    border: 1px solid black;
+}
+.ingredient, .measurement{
+  margin: 10px;
+}
+#addIngredient, #addCocktail{
+  width:200px;
+  margin: 10px;
+}
+#addIngredient{
+  background-color:black;
+  color:white
+}
+#addIngredient:hover, #addCocktail:hover{
+  background-color: white;
+  color:black;
+  border: 1px solid black;
+}
+#addCocktail{
+  background-color:orange;
+  color: white;
+  border: none;
+}
+#description-input{
+  margin: 10px auto;
+}
+#addNewCocktail{
+  background-color: #f0f0f0;
+}
+#addCocktailForm{
+  padding:20px;
 }
