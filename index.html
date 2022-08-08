@@ -20,8 +20,25 @@
             </header>
             <section id="specialty">
                 <!-- <h2 id="cocktail-header">Signature Cocktails</h2> -->
-                <p id="intro">Enter into the world of mixology and make these delicious cocktails at home. Explore our collection and get mixing!</p>
+                <p id="intro">Enter into the world of mixology and make these delicious cocktails at home. Explore our collection and get mixing! Don't see your drink of choice? <span class="showInput">Click here to add it.</span></p>
                 <input type="text" placeholder="Search.." id="search">
+                <div id="addNewCocktail" class="showCocktailForm">
+                    <form id="addCocktailForm">
+                        <!-- <label for="name">Name</label> -->
+                        <input type="text" placeholder="Name of Cocktail" id="name" name="name">
+                        <!-- <label for="image">Image URL</label> -->
+                        <input type="text" placeholder="Image URL" id="image_url" name="image_url">
+                        <!-- <label for="description">Description</label> -->
+                        <textarea  placeholder="Description of Cocktail" id="description" name="description"></textarea>
+                        <!-- <label for="ingredient">Ingredient</label> -->
+                        <input type="text" placeholder="Ingredient" class="ingredient" name="ingredient">
+                        <!-- <label for="measurement">Measurement</label> -->
+                        <input type="text" placeholder="Measurement" class="measurement" name="measurement">
+                        <button id="addIngredient">Add new ingredient</button><br>
+                        <button id="addCocktail" type="submit">Add Cocktail</button>
+                    </form>
+                   
+                </div>
                 <div id="cocktail-specials">
                     <ul id="cocktail-list">
 
@@ -35,7 +52,7 @@
                 </div>
             </section>
             <section id="Review">
-                <form action="" method="POST">
+                <form id="reviewForm" action="" method="POST">
                     <h3>Share a Review</h3>
                     <textarea placeholder="Leave a comment here.." class="textarea"></textarea>
                     <div id="starReview">

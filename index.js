@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     search()
     filterHearts()
     cocktailMenu()
-    createForm()
     postReview()
     hoverStars() 
     saveRating()
+    getNewcocktail()
 
 })
 
@@ -19,9 +19,14 @@ const searchBar = document.getElementById('search')
 const introText = document.getElementById('intro')
 const favorites = document.getElementById('favorites')
 const commentSection = document.querySelector('#comment-section')
-const productRating = document.getElementById('starReview');
-const stars = productRating.querySelectorAll('.star');
+const cocktailRating = document.getElementById('starReview');
+const reviewSection = document.getElementById('Review');
+const stars = cocktailRating.querySelectorAll('.star');
+const form = document.querySelector('#reviewForm')
 let rating = 0;
+const newCocktail = document.getElementById('addNewCocktail')
+const inputForm = document.getElementById('addCocktailForm')
+const showInput = document.querySelector('.showInput')
 
 function renderCocktail(drink){
     const card = document.createElement('li')
@@ -66,6 +71,12 @@ function renderCocktail(drink){
     favorites.addEventListener("click", filterHearts)
 
     showCocktails.addEventListener("click", cocktailMenu)
+
+    
+    reviewSection.style.display = "none";
+    
+
+    
     
     searchBar.style.display = "block"
     introText.style.display = "block"
@@ -81,30 +92,8 @@ function getAllCocktails(){
 }
 
 
-// function handleSubmit(e){
-// 	let cocktailObj = {
-// 	name:e.target.name.value,
-// 	imageUrl:e.target.image_url.value,
-// 	description:e.target.description.value,
-// 	}
-// 	renderCocktail(cocktailObj)
-// 	cocktailDetails(cocktailObj)
-// }
-
-// function cocktailDetails(cocktailObj){
-//     fetch(`http://localhost:3000/drinks`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(cocktailObj)
-//     })
-//     .then(res => res.json())
-//     .then(data => console.log(data))
-// }
-
-
 function showDetails(e){
+    newCocktail.classList.add('showCocktailForm')
     cardUl.style.display = "none"
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
@@ -134,6 +123,8 @@ function showDetails(e){
     const targetIngredientsArr = [].slice.call(targetIngredientsUl)
     const targetUl = document.createElement('ul')
 
+    reviewSection.style.display = "block";
+
     for(let i=0; i< targetIngredientsArr.length; i++){
         const targetIngredients = document.createElement("li")
         targetIngredients.textContent = targetIngredientsArr[i].innerText
@@ -151,6 +142,7 @@ function showDetails(e){
     showCocktails.addEventListener("click", (e) => {
         searchBar.value = ""
         cocktailMenu()
+        reviewSection.style.display = "none";
         searchBar.style.display = "block"
         introText.style.display = "block"
         const updateLike =  e.target.parentNode.parentNode.parentNode.getElementsByClassName("heart")
@@ -168,6 +160,7 @@ favorites.addEventListener('click', (e) => {
         searchBar.value = ""
         searchBar.style.display = "block"
         introText.style.display = "block" 
+        reviewSection.style.display = "none";
 
         const updateFavorites =  e.target.parentNode.parentNode.parentNode.getElementsByClassName("heart")
         const favoriteIdArr = [].slice.call(updateFavorites)
@@ -234,19 +227,6 @@ function search(){
     }) 
 }
 
-
-function addLikeCocktail(e){
-    fetch(`http://localhost:3000/drinks/${e.target.parentNode.id}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(e)
-    })
-    .then(res => res.json())
-    .then(data => likeDrink(data))
-}
-
 function filterHearts(){
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
@@ -260,9 +240,9 @@ function filterHearts(){
     }
 }
 
-function createForm(){
-    const form = document.querySelector('form')
-    form.addEventListener('submit', function submitForm(e){
+
+  
+    form.addEventListener('submit', e =>{
          e.preventDefault()
          commentReview(e.target.childNodes[3].value)
          const targetReview = e.target.childNodes[5].children
@@ -279,9 +259,10 @@ function createForm(){
 
         removeClassFromElements('activated-star', e.target.childNodes[5].children);
         rating = 0;
-        form.reset();  
+        form.reset();
+        
      })
- }
+ 
  
  function commentReview(content){
     for(let i=0; i<1; i++){
@@ -293,7 +274,7 @@ function createForm(){
 }
 
 function postReview(){
-    productRating.addEventListener('click', e => {
+    cocktailRating.addEventListener('click', e => {
         if(!e.target.matches('.star')) return;
         const starID = parseInt(e.target.getAttribute('data-star'));
         removeClassFromElements('activated-star', stars);
@@ -304,7 +285,7 @@ function postReview(){
 
 
 function hoverStars() {
-    productRating.addEventListener('mouseover', e => {
+    cocktailRating.addEventListener('mouseover', e => {
         if(!e.target.matches('.star')) return;
         removeClassFromElements('activated-star', stars);
         const starID = parseInt(e.target.getAttribute('data-star'));
@@ -314,7 +295,7 @@ function hoverStars() {
 
 
 function saveRating(){
-    productRating.addEventListener('mouseleave', e => {
+    cocktailRating.addEventListener('mouseleave', e => {
         removeClassFromElements('activated-star', stars);
         if (rating === 0) return;
         highlightStars(rating);
@@ -333,3 +314,80 @@ function removeClassFromElements(className, elements) {
     elements[i].classList.remove(className)
   }
 }
+
+
+
+showInput.addEventListener('click', () => {
+    if(!newCocktail.classList.contains('showCocktailForm')){
+        newCocktail.classList.add('showCocktailForm')
+    }else{
+        newCocktail.classList.remove('showCocktailForm')
+    }
+})
+
+
+
+
+function getNewcocktail(){
+    inputForm.addEventListener('submit', handleSubmit)
+    const addIngredient = document.getElementById('addIngredient')
+    // addIngredient.addEventListener('click', newIngredients)
+}
+
+// let items = []
+function handleSubmit(e){
+    e.preventDefault()
+
+
+       let drinkObj = {
+        name:e.target.name.value,
+        description:e.target.description.value,
+        img:e.target.image_url.value,
+        ingredients: [
+            {
+                ingredientName:e.target.ingredient.value,
+                measurement:e.target.measurement.value
+            }
+        ],
+        like: "Like &#x2661;"
+       
+    }
+
+renderCocktail(drinkObj)
+addNewCocktail(drinkObj)
+
+    // console.log(drinkObj)
+
+    // for(let i=0; i<drinkObj.length; i++){
+    //     console.log(drinkObj[i])
+    // }
+}
+
+function addNewCocktail(drinkObj){
+    fetch('http://localhost:3000/drinks', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(drinkObj)
+    })
+    .then(res => res.json())
+    .then(drink => console.log(drink))
+}
+
+
+// const newIngredients = (e) => {
+//     const addAnotherIngredient = document.createElement('input')
+//     addAnotherIngredient.placeholder = "ingredient"
+//     addAnotherIngredient.className = "ingredient"
+//     addAnotherIngredient.name = "ingredient"
+//     const addAnotherMeasurement = document.createElement('input')
+//     addAnotherMeasurement.placeholder = "Measurement"
+//     addAnotherMeasurement.className = "measurement"
+//     addAnotherMeasurement.name = "measurement"  
+
+//     inputForm.append(addAnotherIngredient, addAnotherMeasurement)
+
+//     console.log(e.target.parentElement.ingredient)
+
+//     }

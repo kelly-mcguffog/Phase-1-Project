@@ -223,7 +223,8 @@
           "ingredientName": "Cranberry Juice",
           "measurement": "1/4 cup"
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 9,
@@ -262,7 +263,8 @@
           "ingredientName": "Orange Juice",
           "measurement": "2 oz"
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 11,
@@ -283,7 +285,8 @@
           "ingredientName": "Maraschino Cherry",
           "measurement": "1"
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 12,
@@ -304,7 +307,8 @@
           "ingredientName": "Sugar syrup",
           "measurement": "1 dash"
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 13,
@@ -325,7 +329,8 @@
           "ingredientName": "Powdered Sugar",
           "measurement": "1 tsp"
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 14,
@@ -358,7 +363,8 @@
           "ingredientName": "Lemon Peel",
           "measurement": "Twist"
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 15,
@@ -395,7 +401,8 @@
           "ingredientName": "Sweet and Sour Mix",
           "measurement": "1 part"
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 16,
@@ -438,7 +445,8 @@
           "ingredientName": "Grapefruit Juice",
           "measurement": "1 oz"
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 18,
@@ -467,7 +475,8 @@
           "ingredientName": "Soda Water",
           "measurement": ""
         }
-      ]
+      ],
+      "isTrusted": true
     },
     {
       "id": 19,

@@ -3,7 +3,7 @@
 ## Overview
 DrinkUP is a web application that provides a menu of your favorite cocktails. Search through our selection and click on your drink of choice to reveal more information about it. "Like" your favorite cocktails and leave a comment in the review section. 
 
--Don't see your drink of choice? Add your own cocktail for others to make!
+Don't see your drink of choice? Add your own cocktail for others to make!
 
 ## Features
 Filter through cocktail menu

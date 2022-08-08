@@ -117,6 +117,12 @@ button:hover{
   margin: 30px auto;
   text-align: center;
 }
+.showInput{
+  text-decoration: underline;
+}
+.showInput:hover{
+  cursor: pointer;
+}
 h3{
     text-transform: capitalize;
     letter-spacing: 0px;
@@ -204,3 +210,10 @@ textarea{
     font-weight: 200;
     font-size:14px;
   }
+#addNewCocktail{
+  text-align: center;
+}
+
+.showCocktailForm{
+  display: none;
+}
