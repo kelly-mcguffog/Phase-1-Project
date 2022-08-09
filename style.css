@@ -177,7 +177,7 @@ h3{
   }
 
 textarea{
-    width: 100%;
+    width: 75%;
     height:70px;
     margin-top: 20px;
   }
@@ -199,7 +199,7 @@ textarea{
     cursor: pointer;
   }
 
-  form, #comment-section, #form-line{
+  #reviewForm, #comment-section, #form-line{
     width:85%;
     margin: 20px auto;
   }
@@ -252,9 +252,14 @@ textarea{
 #description-input{
   margin: 10px auto;
 }
-#addNewCocktail{
-  background-color: #f0f0f0;
-}
 #addCocktailForm{
+  background-color: #f0f0f0;
+  padding: 20px 0px;
+  margin-top: 30px;
+}
+/* #addCocktailForm{
   padding:20px;
+} */
+.buttons{
+  text-align: center;
 }

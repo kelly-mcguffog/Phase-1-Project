@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     postReview()
     hoverStars() 
     saveRating()
-    getNewcocktail()
+    newIngredients()
 
 })
 
@@ -27,6 +27,7 @@ let rating = 0;
 const newCocktail = document.getElementById('addNewCocktail')
 const inputForm = document.getElementById('addCocktailForm')
 const showInput = document.querySelector('.showInput')
+const addIngredient = document.getElementById('addIngredient')
 
 function renderCocktail(drink){
     const card = document.createElement('li')
@@ -46,12 +47,12 @@ function renderCocktail(drink){
     ingredientsUl.className = "ingredientsUl"
     const ingredients = drink.ingredients
 
-        for(let i=0; i< ingredients.length; i++){
-            const ingredientsLi = document.createElement('li')
-            ingredientsLi.innerHTML = 
-            `${ingredients[i].measurement} ${ingredients[i].ingredientName}`
-            ingredientsUl.append(ingredientsLi)
-        }
+    for(let i=0; i< ingredients.length; i++){
+        const ingredientsLi = document.createElement('li')
+        ingredientsLi.innerHTML = 
+        `${ingredients[i].measurement} ${ingredients[i].ingredientName}`
+        ingredientsUl.append(ingredientsLi)
+    }
  
     ingredientsUl.style.display = "none"
     const cardBtn = document.createElement('button')
@@ -66,7 +67,7 @@ function renderCocktail(drink){
     
     heart.addEventListener("click", likeDrink)
 
-    cardBtn.addEventListener("click", showDetails, likeDrink)
+    cardBtn.addEventListener("click", showDetails)
 
     favorites.addEventListener("click", filterHearts)
 
@@ -74,10 +75,7 @@ function renderCocktail(drink){
 
     
     reviewSection.style.display = "none";
-    
 
-    
-    
     searchBar.style.display = "block"
     introText.style.display = "block"
     targetImgDiv.innerHTML = ""
@@ -93,7 +91,7 @@ function getAllCocktails(){
 
 
 function showDetails(e){
-    newCocktail.classList.add('showCocktailForm')
+    inputForm.classList.add('showCocktailForm')
     cardUl.style.display = "none"
     targetImgDiv.innerHTML = ""
     details.innerHTML = ""
@@ -242,26 +240,25 @@ function filterHearts(){
 
 
   
-    form.addEventListener('submit', e =>{
-         e.preventDefault()
-         commentReview(e.target.childNodes[3].value)
-         const targetReview = e.target.childNodes[5].children
-         for(let i=0; i < targetReview.length; i++){
-            if(targetReview[i].classList.contains("activated-star")){
-                const createStar = document.createElement('span')
-                createStar.textContent = targetReview[i].innerHTML
-                commentSection.append(createStar)
-                postReview(createStar)
-            }
+form.addEventListener('submit', e =>{
+    e.preventDefault()
+    commentReview(e.target.childNodes[3].value)
+    const targetReview = e.target.childNodes[5].children
+    for(let i=0; i < targetReview.length; i++){
+        if(targetReview[i].classList.contains("activated-star")){
+            const createStar = document.createElement('span')
+            createStar.textContent = targetReview[i].innerHTML
+            commentSection.append(createStar)
+            postReview(createStar)
         }
-        const line = document.createElement('hr')
-        commentSection.append(line)
+    }
+    const line = document.createElement('hr')
+    commentSection.append(line)
 
-        removeClassFromElements('activated-star', e.target.childNodes[5].children);
-        rating = 0;
-        form.reset();
-        
-     })
+    removeClassFromElements('activated-star', e.target.childNodes[5].children);
+    rating = 0;
+    form.reset();
+})
  
  
  function commentReview(content){
@@ -318,76 +315,72 @@ function removeClassFromElements(className, elements) {
 
 
 showInput.addEventListener('click', () => {
-    if(!newCocktail.classList.contains('showCocktailForm')){
-        newCocktail.classList.add('showCocktailForm')
+    if(!inputForm.classList.contains('showCocktailForm')){
+        inputForm.classList.add('showCocktailForm')
     }else{
-        newCocktail.classList.remove('showCocktailForm')
+        inputForm.classList.remove('showCocktailForm')
     }
 })
 
-
-
-
-function getNewcocktail(){
-    inputForm.addEventListener('submit', handleSubmit)
-    const addIngredient = document.getElementById('addIngredient')
-    // addIngredient.addEventListener('click', newIngredients)
-}
-
-// let items = []
-function handleSubmit(e){
-    e.preventDefault()
-
-
-       let drinkObj = {
-        name:e.target.name.value,
-        description:e.target.description.value,
-        img:e.target.image_url.value,
-        ingredients: [
-            {
-                ingredientName:e.target.ingredient.value,
-                measurement:e.target.measurement.value
-            }
-        ],
-        like: "Like &#x2661;"
-       
+function newIngredients(){
+    const addAnotherIngredient = document.createElement('input')
+    addAnotherIngredient.placeholder = "Ingredient.."
+    addAnotherIngredient.className = "ingredient"
+    addAnotherIngredient.name = "ingredient"
+    addAnotherIngredient.type="text"
+    const addAnotherMeasurement = document.createElement('input')
+    addAnotherMeasurement.placeholder = "Measurement.."
+    addAnotherMeasurement.className = "measurement"
+    addAnotherMeasurement.name = "measurement"
+    addAnotherMeasurement.type="text"
+    const lineBreak = document.createElement('br')
+    newCocktail.append(addAnotherIngredient, addAnotherMeasurement,lineBreak)
     }
 
-renderCocktail(drinkObj)
-addNewCocktail(drinkObj)
+let serializeForm = function(e){
 
-    // console.log(drinkObj)
+    const allIngredients = document.querySelectorAll('.ingredient');
+    const allMeasurements = document.querySelectorAll('.measurement');
+    const ingredients = []
 
-    // for(let i=0; i<drinkObj.length; i++){
-    //     console.log(drinkObj[i])
-    // }
+    allIngredients.forEach((element, index) => {
+        const ingredientName = element.value
+        const measurement = allMeasurements[index].value
+        ingredients.push({ingredientName,measurement})
+    })
+
+    return {
+        name:e.name.value,
+        img:e.image_url.value,
+        description:e.description.value,
+        like: "Like &#x2661;",
+        ingredients: ingredients,
+    }
 }
 
-function addNewCocktail(drinkObj){
-    fetch('http://localhost:3000/drinks', {
+function submitForm(data){
+   return fetch("http://localhost:3000/drinks", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(drinkObj)
+        body: JSON.stringify(data)
     })
     .then(res => res.json())
     .then(drink => console.log(drink))
+
 }
 
+function onHandleSubmit(e){
+    e.preventDefault()
+    const data = serializeForm(e.target)
+    console.log(data)
+    submitForm(data)
+    .then(() => {
+        e.target.reset();
+        renderCocktail(data)
+    })
+}
 
-// const newIngredients = (e) => {
-//     const addAnotherIngredient = document.createElement('input')
-//     addAnotherIngredient.placeholder = "ingredient"
-//     addAnotherIngredient.className = "ingredient"
-//     addAnotherIngredient.name = "ingredient"
-//     const addAnotherMeasurement = document.createElement('input')
-//     addAnotherMeasurement.placeholder = "Measurement"
-//     addAnotherMeasurement.className = "measurement"
-//     addAnotherMeasurement.name = "measurement"  
-
-//     inputForm.append(addAnotherIngredient, addAnotherMeasurement)
-
-//     console.log(e.target.parentElement.ingredient)
-
-//     }
+addIngredient.addEventListener('click', newIngredients)
+inputForm.addEventListener('submit', onHandleSubmit)
