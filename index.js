@@ -238,8 +238,6 @@ function filterHearts(){
     }
 }
 
-
-  
 form.addEventListener('submit', e =>{
     e.preventDefault()
     commentReview(e.target.childNodes[3].value)
