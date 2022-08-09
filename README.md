@@ -10,6 +10,7 @@ Filter through cocktail menu
 Click to see more information
 Heart your favorite cocktails
 Leave a review
+Add more cocktails
 
 ## MVP
 Navigation
@@ -20,5 +21,7 @@ Favorite page
 ## STRECTH
 Use json-server to create menu of cocktails and add new ones
 
-## Cocktail Recipes & Descriptions
-https://insanelygoodrecipes.com/cocktail-recipes/
+## Credit
+API: https://www.thecocktaildb.com/api.php
+Images: Google
+Descriptions inspired by: https://insanelygoodrecipes.com/cocktail-recipes/
