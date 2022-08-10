@@ -22,6 +22,6 @@ Don't see your drink of choice? Add your own cocktail for others to make!
 Use json-server to create menu of cocktails and add new ones
 
 ## Credit
-API: https://www.thecocktaildb.com/api.php
-Images: Google
-Descriptions inspired by: https://insanelygoodrecipes.com/cocktail-recipes/
+* API: https://www.thecocktaildb.com/api.php
+* Images: Brought to you by Google Images
+* Descriptions inspired by: https://insanelygoodrecipes.com/cocktail-recipes/
