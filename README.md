@@ -6,17 +6,17 @@ DrinkUP is a web application that provides a menu of your favorite cocktails. Se
 Don't see your drink of choice? Add your own cocktail for others to make!
 
 ## Features
-Filter through cocktail menu
-Click to see more information
-Heart your favorite cocktails
-Leave a review
-Add more cocktails
+* Filter through cocktail menu
+* Click to see more information
+* Heart your favorite cocktails
+* Leave a review
+* Add more cocktails
 
 ## MVP
-Navigation
-Home Page
-Cocktail Menu Page
-Favorite page
+* Navigation
+* Home Page
+* Cocktail Menu Page
+* Favorite page
 
 ## STRECTH
 Use json-server to create menu of cocktails and add new ones
