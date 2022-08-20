@@ -1,35 +1,33 @@
+document.cookie = 'cookie2=value2; SameSite=None; Secure';
 document.addEventListener("DOMContentLoaded", () => {
-
     getAllCocktails()
     search()
-    filterHearts()
-    cocktailMenu()
     postReview()
     hoverStars() 
     saveRating()
     newIngredients()
-
+    navLinks()
 })
 
-const cardUl = document.getElementById('cocktail-list');
-const details = document.getElementById('cocktail-details');
-const showCocktails = document.getElementById("cocktails")
-const targetImgDiv = document.getElementById('cocktail-target-img')
+const home = document.getElementById('home')
+const details = document.getElementById('target-cocktail-details')
+const targetLike = document.querySelector(".target-heart")
 const searchBar = document.getElementById('search')
-const introText = document.getElementById('intro')
-const favorites = document.getElementById('favorites')
+const subText = document.getElementById('subtext')
+const noFavorites = document.getElementById('default-no-favorites')
 const commentSection = document.querySelector('#comment-section')
 const cocktailRating = document.getElementById('starReview');
 const reviewSection = document.getElementById('Review');
-const stars = cocktailRating.querySelectorAll('.star');
 const form = document.querySelector('#reviewForm')
-let rating = 0;
-const newCocktail = document.getElementById('addNewCocktail')
+const stars = cocktailRating.querySelectorAll('.star');
 const inputForm = document.getElementById('addCocktailForm')
 const showInput = document.querySelector('.showInput')
 const addIngredient = document.getElementById('addIngredient')
+let rating = 0;
 
 function renderCocktail(drink){
+    const cardUl = document.getElementById('cocktail-list');
+    home.style.display = "block"
     const card = document.createElement('li')
     card.className = "card"
     card.id = drink.id
@@ -43,172 +41,95 @@ function renderCocktail(drink){
     const cocktailDescription = document.createElement('p')
     cocktailDescription.className = "cocktailDescription"
     cocktailDescription.textContent = drink.description
-    const ingredientsUl = document.createElement("ul")
-    ingredientsUl.className = "ingredientsUl"
-    const ingredients = drink.ingredients
-
-    for(let i=0; i< ingredients.length; i++){
-        const ingredientsLi = document.createElement('li')
-        ingredientsLi.innerHTML = 
-        `${ingredients[i].measurement} ${ingredients[i].ingredientName}`
-        ingredientsUl.append(ingredientsLi)
-    }
- 
-    ingredientsUl.style.display = "none"
     const cardBtn = document.createElement('button')
     cardBtn.className = "cardBtn"
     cardBtn.innerText = "See More"
     const heart = document.createElement('p')
-    heart.id = `heart${drink.id}`
+    heart.innerHTML = "Like &#x2661;"
+    heart.id = drink.id
     heart.className = "heart"
-    heart.innerHTML = drink.like
-       
-    card.append(cocktailImg, cocktailName, cocktailDescription, ingredientsUl, cardBtn, heart)
+    cardBtn.details = drink
+    card.append(cocktailImg, cocktailName, cocktailDescription, cardBtn, heart)
     
     heart.addEventListener("click", likeDrink)
-
     cardBtn.addEventListener("click", showDetails)
-
-    favorites.addEventListener("click", filterHearts)
-
-    showCocktails.addEventListener("click", cocktailMenu)
-
-    
     reviewSection.style.display = "none";
-
-    searchBar.style.display = "block"
-    introText.style.display = "block"
-    targetImgDiv.innerHTML = ""
-    details.innerHTML = ""
+    details.style.display = "none"
+    noFavorites.style.display="none"
 }
-
 
 function getAllCocktails(){
     fetch("http://localhost:3000/drinks")
     .then(res => res.json())
-    .then(data => data.map(drink => renderCocktail(drink)))
+    .then(data => renderAllCocktails(data))
+}
+
+function renderAllCocktails(drinks){
+    drinks.forEach(renderCocktail)
 }
 
 
 function showDetails(e){
-    inputForm.classList.add('showCocktailForm')
-    cardUl.style.display = "none"
-    targetImgDiv.innerHTML = ""
-    details.innerHTML = ""
-    searchBar.style.display = "none"
-    introText.style.display = "none" 
-    details.style.width = "50%";
-    details.style.display = "inline-block";
-    details.style.verticalAlign = "middle";
-    details.style.marginLeft = "20px";
-
-    const targetCocktail = e.target.parentNode.children
-    const targetArr = [].slice.call(targetCocktail)
-
-    const targetImg = document.createElement("img")
-    targetImg.src = targetArr[0].currentSrc
-    targetImg.className = "cocktailImg"
-    targetImgDiv.append(targetImg)
+    const targetDetails = e.target.details
+    home.style.display = "none";
+    details.style.display = "block"
     
-    const targetName = document.createElement("h3")
-    targetName.textContent = targetArr[1].innerText
-
-    const targetDescription = document.createElement("p")
-    targetDescription.textContent = targetArr[2].innerText
-    targetDescription.className = "cocktailDescription targetDescription"
+    const targetImg = document.getElementById("target-img")
+    targetImg.src = targetDetails.img
     
-    const targetIngredientsUl  = targetArr[3].children
-    const targetIngredientsArr = [].slice.call(targetIngredientsUl)
-    const targetUl = document.createElement('ul')
+    const targetName = document.getElementById("target-name")
+    targetName.textContent = targetDetails.name
 
-    reviewSection.style.display = "block";
+    const targetDescription = document.getElementById("target-description")
+    targetDescription.textContent = targetDetails.description
 
-    for(let i=0; i< targetIngredientsArr.length; i++){
+    
+    const targetIngredientsUl  = document.getElementById("ingredientsUl")
+    targetIngredientsUl.innerHTML = ""
+
+    for(const elements of targetDetails.ingredients){
         const targetIngredients = document.createElement("li")
-        targetIngredients.textContent = targetIngredientsArr[i].innerText
-        targetUl.append(targetIngredients)
-        targetUl.className = "ingredientsUl"
+        targetIngredients.textContent = `${elements.measurement} ${elements.ingredientName}`
+        targetIngredientsUl.append(targetIngredients)
     }
+        
+    targetLike.id = e.target.parentNode.id
+    const allHearts = e.target.parentNode.parentNode.getElementsByClassName('heart')
+    const allHeartsArr = Array.from(allHearts)
 
-    const targetLike = document.createElement("p")
-    targetLike.textContent = targetArr[5].innerText
-    targetLike.className = targetArr[5].className
-    details.append(targetName, targetDescription, targetUl, targetLike)
-    details.id = e.target.parentNode.id
-    targetLike.addEventListener('click', likeDrink)
-    targetLike.id = "heart" + e.target.parentNode.id
-    showCocktails.addEventListener("click", (e) => {
-        searchBar.value = ""
-        cocktailMenu()
-        reviewSection.style.display = "none";
-        searchBar.style.display = "block"
-        introText.style.display = "block"
-        const updateLike =  e.target.parentNode.parentNode.parentNode.getElementsByClassName("heart")
-        const heartArr = [].slice.call(updateLike)
-        for(let i = 0; i < heartArr.length; i++){
-            if(heartArr[i].id === targetLike.id){
-            heartArr[i].className = targetLike.className
+    for(let i=0; i<allHeartsArr.length; i++){
+        if(allHeartsArr[i].id === targetLike.id){
+            targetLike.className = allHeartsArr[i].className
+        }
+    }
+    reviewSection.style.display = "block"
+}
+
+targetLike.addEventListener('click', e => {
+    likeDrink(e)
+    console.log(document.querySelectorAll('.card'))
+    const allDrinks = document.querySelectorAll('.card')
+    const allDrinksArr = Array.from(allDrinks)
+    for(const elements of allDrinksArr){
+        if(elements.id === e.target.id){
+            const targetCardLike = elements.querySelector('.heart')
+            targetCardLike.className = e.target.className
         }
     }
 })
 
-favorites.addEventListener('click', (e) => {
-        targetImgDiv.innerHTML = ""
-        details.innerHTML = ""
-        searchBar.value = ""
-        searchBar.style.display = "block"
-        introText.style.display = "block" 
-        reviewSection.style.display = "none";
 
-        const updateFavorites =  e.target.parentNode.parentNode.parentNode.getElementsByClassName("heart")
-        const favoriteIdArr = [].slice.call(updateFavorites)
-
-        for(let i = 0; i<favoriteIdArr.length; i++){
-            if(!(favoriteIdArr[i].classList.contains('activated-heart'))){
-                cardUl.style.display = "block"
-                favoriteIdArr[i].parentElement.style.display = "none"
-            }else{
-                cardUl.style.display = "block"
-                favoriteIdArr[i].parentElement.style.display = "inline-grid"
-            }
-   
-        }
-
-    })
-}
-
-function cocktailMenu(){
-    targetImgDiv.innerHTML = ""
-    details.innerHTML = ""
-    cardUl.style.display = "block"
-    const uniqueIds = [];
-    const uniqueCocktails = document.getElementsByClassName('card')
-    const arr = [].slice.call(uniqueCocktails)
-    const unique = arr.filter(element => {
-    const isDuplicate = uniqueIds.includes(element.id);
-          
-    if (!isDuplicate) {
-        uniqueIds.push(element.id);
-        return true;
-    }
-        return false;
-            
-    });
-
-    for(let i=0; i < unique.length; i++){
-        unique[i].style.display = "inline-grid"
-        cardUl.append(unique[i])
-     }       
-}
 
 function likeDrink(e){
     const activated = e.target.classList.contains('activated-heart')
+
     if(!activated){
         e.target.classList.add('activated-heart')
     } else{
         e.target.classList.remove('activated-heart')
-    }
+    }  
 }
+
 
 function search(){
     searchBar.addEventListener('keyup', function(){
@@ -222,24 +143,57 @@ function search(){
                 searchName[i].parentNode.style.display="inline-grid"
             }
         }
-    }) 
+    })
 }
 
-function filterHearts(){
-    targetImgDiv.innerHTML = ""
-    details.innerHTML = ""
+function showFavorites(){
+    home.style.display = "block"
+    details.style.display = "none"
+    reviewSection.style.display = "none"
+    subText.style.display = "none"
     const list = document.getElementsByClassName('card')
-    for(let i=0; i < list.length; i++){
-        if(list[i].childNodes[5].classList.contains("activated-heart")){
-            list[i].style.display = "inline-grid"
+    searchBar.style.display = "none"
+    noFavorites.style.display="block"
+
+    for(const cards of list){
+        const cardElements = Array.from(cards.children)
+        if(cardElements[4].classList.contains("activated-heart")){
+            cards.style.display = "inline-grid"
+            noFavorites.style.display = "none"
         }else{
-            list[i].style.display = "none"
+            cards.style.display = "none"
+
         }
     }
 }
 
+function navLinks(){
+    const favorites = document.getElementById('favorites')
+    favorites.addEventListener('click', showFavorites)
+
+    const showCocktails = document.getElementById("cocktails")
+    showCocktails.addEventListener('click', () => {
+        home.style.display = "block"
+        noFavorites.style.display = "none"
+        searchBar.style.display = "block"
+        subText.style.display = "block"
+        details.style.display = "none"
+        reviewSection.style.display = "none"
+        searchBar.value = ""
+        const cocktailList = document.getElementsByClassName('card')
+        const cocktailListArr = Array.from(cocktailList)
+  
+        for(const cockatil of cocktailListArr){
+            cockatil.style.display = "inline-grid"
+        }
+    })
+}
+
+
+
 form.addEventListener('submit', e =>{
     e.preventDefault()
+    console.log(e.target.childNodes[3])
     commentReview(e.target.childNodes[3].value)
     const targetReview = e.target.childNodes[5].children
     for(let i=0; i < targetReview.length; i++){
@@ -322,6 +276,7 @@ showInput.addEventListener('click', () => {
 
 function newIngredients(){
     const addAnotherIngredient = document.createElement('input')
+    const newCocktail = document.getElementById('addNewCocktail')
     addAnotherIngredient.placeholder = "Ingredient.."
     addAnotherIngredient.className = "ingredient"
     addAnotherIngredient.name = "ingredient"
@@ -336,7 +291,6 @@ function newIngredients(){
     }
 
 let serializeForm = function(e){
-
     const allIngredients = document.querySelectorAll('.ingredient');
     const allMeasurements = document.querySelectorAll('.measurement');
     const ingredients = []
@@ -344,11 +298,11 @@ let serializeForm = function(e){
     allIngredients.forEach((element, index) => {
         const ingredientName = element.value
         const measurement = allMeasurements[index].value
-        ingredients.push({ingredientName,measurement})
+        ingredients.push({ingredientName, measurement})
     })
 
     return {
-        name:e.name.value,
+        name:e.input_name.value,
         img:e.image_url.value,
         description:e.description.value,
         like: "Like &#x2661;",
@@ -372,7 +326,6 @@ function submitForm(data){
 function onHandleSubmit(e){
     e.preventDefault()
     const data = serializeForm(e.target)
-    console.log(data)
     submitForm(data)
     .then(() => {
         e.target.reset();

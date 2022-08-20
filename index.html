@@ -18,13 +18,12 @@
                     <h3>Bring the bar to you</h3>
                 </div>
             </header>
-            <section id="specialty">
-                <p id="intro">Enter into the world of mixology and make these delicious cocktails at home. Explore our collection and get mixing! Don't see your drink of choice? <span class="showInput">Click here to add it.</span></p>
+            <section id="home">
+                <p id="subtext">Enter into the world of mixology and make these delicious cocktails at home. Explore our collection and get mixing! Don't see your drink of choice? <span class="showInput">Click here to add it.</span></p>
                 <input type="text" placeholder="Search.." id="search">
                     <form id="addCocktailForm" class="showCocktailForm">
                         <div id="addNewCocktail">
-                            <input type="text" placeholder="Name.." id="name" name="name" required>
-                            <input type="text" placeholder="Image URL.." id="image_url" name="image_url" required>
+                            <input type="text" placeholder="Name.." id="input_name" name="input_name" required><input type="text" placeholder="Image URL.." id="image_url" name="image_url" required>
                             <textarea  placeholder="Description.." id="description-input" name="description" required></textarea><br>
                         </div>
                         <div class="buttons">
@@ -34,22 +33,34 @@
                     </form>
                    
                 </div>
-                <div id="cocktail-specials">
+                <div id="cocktail-options">
                     <ul id="cocktail-list">
 
                     </ul>
                 </div>
             </section>
-            <section id="target-details">
-                <div id="cocktail-target-img">
+            <section id="target-cocktail-details">
+                <div id="target-cocktail-img">
+                    <img id="target-img" class="cocktailImg" src="">
                 </div>
-                <div id="cocktail-details">
+                <div id="target-details">
+                    <h3 id="target-name"></h3>
+                    <p id="target-description"></p>
+                    <ul id="ingredientsUl"></ul>
+                    <p class="target-heart">Like &#x2661;</p>
+                </div>
+            </section>
+            <section>
+                <div id="default-no-favorites">
+                    <h1 id="noFavorites-heart" class="noFavorites">&#x2661;</h1>
+                    <h3 id="noFavorites-header" class="noFavorites">No favorites yet</h3>
+                    <p id="noFavorites-text" class="noFavorites">You can add a cocktail to your favorites by clicking on its respective heart</p> 
                 </div>
             </section>
             <section id="Review">
-                <form id="reviewForm" action="" method="POST">
+                <form id="reviewForm" action="#" method="POST">
                     <h3>Share a Review</h3>
-                    <textarea placeholder="Leave a comment here.." class="textarea"></textarea>
+                    <textarea placeholder="Leave a comment here.." id="comment-Review" class="textarea"></textarea>
                     <div id="starReview">
                         <span class="star" data-star="1">&#9733;</span>
                         <span class="star" data-star="2">&#9733;</span>
